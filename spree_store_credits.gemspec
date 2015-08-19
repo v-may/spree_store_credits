@@ -4,7 +4,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
 
   s.name        = 'spree_store_credits'
-  s.version     = '1.1.1'
+  s.version     = '2.4.0'
   s.authors     = ["Roman Smirnov", "Brian Quinn"]
   s.email       = 'roman@railsdog.com'
   s.homepage    = 'http://github.com/spree/spree-store-credits'
@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ["lib"]
 
-  spree_version = '~> 2.2.0.beta'
+  spree_version = '~> 2.4.0'
   s.add_dependency 'spree_api', spree_version
   s.add_dependency 'spree_core', spree_version
   s.add_dependency 'spree_frontend', spree_version
