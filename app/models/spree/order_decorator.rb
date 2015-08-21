@@ -10,7 +10,7 @@ Spree::Order.class_eval do
   validates_with StoreCreditMinimumValidator
 
   def process_payments_with_credits!
-    if total > 0 && pending_payments.empty?
+    if payment_required? && pending_payments.empty? && unprocessed_payments.empty?
       false
     else
       process_payments_without_credits!
