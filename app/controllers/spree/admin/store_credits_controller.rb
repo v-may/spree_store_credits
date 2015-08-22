@@ -3,6 +3,14 @@ module Spree
     before_filter :check_amounts, :only => [:edit, :update]
     prepend_before_filter :set_remaining_amount, :only => [:create, :update]
 
+    def index
+      if params[:user_id].present?
+        @user = Spree::User.find(params[:user_id])
+        @store_credits = @user.store_credits
+        render file: 'spree/admin/users/store_credits' and return
+      end
+    end
+
     protected
       def permitted_resource_params
         params.require(:store_credit).permit(permitted_store_credit_attributes)

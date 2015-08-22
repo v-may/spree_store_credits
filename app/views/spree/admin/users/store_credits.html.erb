@@ -1,0 +1,52 @@
+<% content_for :page_title do %>
+  <%= link_to "#{Spree.t(:store_credits)} #{@user.email}", edit_admin_user_url(@user) %>
+<% end %>
+
+<%= render :partial => 'spree/admin/users/sidebar', :locals => { :current => :store_credits } %>
+<%= render :partial => 'spree/admin/users/user_page_actions' %>
+
+<h1 class="page-title "> <%= Spree.t("listing_store_credits") %></h1><br>
+
+<div>
+  <%= "#{Spree.t :current_store_credit}: " %>
+  <strong>
+    <%= number_to_currency(@user.store_credits_total) %>
+  </strong>
+</div>
+<br/>
+<%= link_to_with_icon('usd', Spree.t('add_store_credit'), new_admin_user_store_credit_url(@user)) %>
+
+<table class="index">
+  <thead>
+    <tr>
+      <th><%= Spree.t("user") %></th>
+      <th><%= Spree.t("amount") %></th>
+      <th><%= Spree.t("remaining_amount") %></th>
+      <th><%= Spree.t("reason") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @store_credits.each do |store_credit|%>
+      <tr id="<%= dom_id store_credit %>">
+        <td><%= link_to store_credit.user.email, admin_user_url(store_credit.user) if store_credit.user.present? %></td>
+        <td><%= number_to_currency store_credit.amount %></td>
+        <td><%= number_to_currency store_credit.remaining_amount %></td>
+        <td><%= store_credit.reason %></td>
+        <td class="actions">
+          <% if store_credit.remaining_amount > 0 %>
+            <% if store_credit.amount == store_credit.remaining_amount %>
+              <%= link_to_edit store_credit, :no_text => true %> &nbsp;
+            <% else %>
+              <%= Spree.t(:was_partially_used) %>
+            <% end %>
+            <%= link_to_delete store_credit, :no_text => true %>
+          <% else %>
+            <%= Spree.t(:was_fully_used) %>
+          <% end %>
+      </tr>
+    <% end %>
+    <% if @store_credits.empty? %>
+      <tr><td colspan="4"><%= Spree.t(:none) %></td></tr>
+    <% end %>
+  </tbody>
+</table>

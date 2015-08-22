@@ -13,6 +13,16 @@ Deface::Override.new(
   :disabled => false)
 
 Deface::Override.new(
+  :virtual_path => "spree/admin/users/_sidebar",
+  :name => "store_credits_admin_users_user_store_credits_tab",
+  :insert_bottom => "[data-hook='admin_user_tab_options']",
+  :text => 
+    "<li<%== \"class='active'\" if current == :store_credits %>>" +
+    "<%= link_to_with_icon('usd', Spree.t('store_credits') + ': ' + number_to_currency(@user.store_credits_total), admin_user_store_credits_url(@user)) %>" +
+    "</li>",
+  :disabled => false)
+
+Deface::Override.new(
   :virtual_path => "spree/checkout/_payment",
   :name => "store_credits_checkout_payment_step",
   :insert_after => "[data-hook='checkout_payment_step']",
