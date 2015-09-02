@@ -10,15 +10,6 @@ Spree::Order.class_eval do
 
   validates_with StoreCreditMinimumValidator
 
-  def process_payments_with_credits!
-    if payment_required? && pending_payments.empty? && unprocessed_payments.empty?
-      false
-    else
-      process_payments_without_credits!
-    end
-  end
-  alias_method_chain :process_payments!, :credits
-
   def store_credit_amount
     adjustments.store_credits.sum(:amount).abs.to_f
   end
